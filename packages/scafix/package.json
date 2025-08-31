@@ -1,0 +1,7 @@
+{
+  "name": "scafix",
+  "version": "1.0.0",
+  "main": "wrapper.tsx",
+  "private": true,
+  "dependencies": {}
+}

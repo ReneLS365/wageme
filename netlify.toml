@@ -1,0 +1,29 @@
+# Netlify config for monorepo med Next.js app i apps/web
+# Bygger fra repo-roden (npm workspaces) og publicerer Next.js build output fra apps/web/.next
+
+[build]
+  # Installer dependencies og byg Next.js appen i arbejdsområdet for web-appen.
+  command = "npm install && npm -w apps/web run build"
+  # Angiv udgivelsesmappe hvor Next.js genererer statiske assets og serverless-funktioner.
+  publish = "apps/web/.next"
+
+[build.environment]
+  # Brug Node.js 18 i Netlify build containeren.
+  NODE_VERSION = "18"
+  # Slå Next.js telemetri fra.
+  NEXT_TELEMETRY_DISABLED = "1"
+
+# Redirect alt til Netlifys Next.js runtime funktion for at håndtere App Router-ruting
+[[redirects]]
+  from = "/*"
+  to   = "/.netlify/functions/next"
+  status = 200
+
+# Sikkerheds-headere
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(self)"

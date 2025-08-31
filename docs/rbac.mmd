@@ -1,0 +1,25 @@
+%%{init: { 'theme': 'default' } }%%
+flowchart TD
+    subgraph Roller
+        A[Admin]
+        M[Manager]
+        W[Worker]
+    end
+    subgraph Ressourcer
+        P[Project]
+        TE[Time Entry]
+        CS[CountSheet]
+        CJ[ChangeLog]
+    end
+    A -- fuld adgang --> P
+    A -- fuld adgang --> TE
+    A -- fuld adgang --> CS
+    A -- læs --> CJ
+    M -- læs/skriv --> P
+    M -- læs/skriv --> TE
+    M -- læs/skriv --> CS
+    M -- læs --> CJ
+    W -- læs --> P
+    W -- læs/skriv egne --> TE
+    W -- ingen --> CS
+    W -- læs --> CJ

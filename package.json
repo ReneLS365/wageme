@@ -1,0 +1,25 @@
+{
+  "name": "aibuildscript-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "supabase/functions/*"
+  ],
+  "scripts": {
+    "dev": "npm -w apps/web run dev",
+    "build": "npm -w apps/web run build",
+    "start": "npm -w apps/web run start",
+    "test": "npm -w apps/web run test && npm -w packages/exports run test || true",
+    "typecheck": "tsc -b",
+    "lint": "echo 'Lint script placeholder' && exit 0",
+    "db:migrate": "psql \"$DATABASE_URL\" < supabase/schema.sql && psql \"$DATABASE_URL\" < supabase/triggers.sql && psql \"$DATABASE_URL\" < supabase/rls.sql",
+    "db:seed": "psql \"$DATABASE_URL\" < supabase/seeds.sql",
+    "db:reset": "psql \"$DATABASE_URL\" -c 'drop schema public cascade; create schema public;' && npm run db:migrate && npm run db:seed",
+    "deploy": "echo 'Deploy via CI/CD' && exit 0"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}

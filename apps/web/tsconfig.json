@@ -1,0 +1,24 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["*"],
+      "@/app/*": ["app/*"],
+      "@/lib/*": ["lib/*"],
+      "@/components/*": ["components/*"],
+      "@/packages/exports": ["../../packages/exports"],
+      "@/packages/exports/*": ["../../packages/exports/*"],
+      "@/packages/scafix": ["../../packages/scafix"],
+      "@/packages/scafix/*": ["../../packages/scafix/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "app/**/*",
+    "components/**/*",
+    "lib/**/*",
+    "tests/**/*"
+  ],
+  "exclude": ["node_modules", ".next", "dist"]
+}

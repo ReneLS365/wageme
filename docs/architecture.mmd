@@ -1,0 +1,20 @@
+%%{init: { 'theme': 'default' } }%%
+sequenceDiagram
+    participant UI as Next.js frontend
+    participant API as Route Handlers
+    participant DB as Supabase/Postgres
+    participant Scafix as Scafix iFrame
+    participant Worker as Edge Function
+
+    UI->>API: POST /api/time-entries
+    API->>DB: insert time_entries
+    DB-->>API: row inserted
+    API-->>UI: OK
+    UI->>DB: realtime lytning (supabase client)
+    Scafix->>UI: postMessage {countSheetCreated}
+    UI->>API: POST /api/scafix/event
+    API->>DB: insert count_sheets & export_jobs
+    DB-->>API: OK
+    API-->>UI: OK
+    Worker->>DB: læs change_logs dagligt
+    Worker->>DB: opret export_jobs som digest email
